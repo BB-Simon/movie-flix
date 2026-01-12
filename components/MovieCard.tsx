@@ -6,7 +6,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 const MovieCard = ({ id, poster_path, path, title, vote_average, release_date, overview }: any) => {
   return (
     <Link href={`/movies/${id}`} asChild>
-      <TouchableOpacity className="w-1/3">
+      <TouchableOpacity className="w-[30%]">
         <Image
           source={{
             uri: poster_path
@@ -21,7 +21,7 @@ const MovieCard = ({ id, poster_path, path, title, vote_average, release_date, o
         </Text>
 
         <View className="flex-row items-center mt-1 gap-1">
-          <Image source={icons.star} className="w-4 h-4" />
+          <Image style={{ width: 12, height: 12 }} source={icons.star} className="w-4 h-4" />
           <Text className="text-light-300 text-xs">{Math.round(vote_average / 2)}</Text>
         </View>
         <View className="flex-row items-center justify-between mt-1 gap-1">

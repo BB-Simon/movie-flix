@@ -2,6 +2,7 @@ import { images } from "@/assets/constants/images";
 import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
 import { fetchMovies } from "@/services/api";
+import { gettrendingMovies } from "@/services/appwrite";
 import useFetch from "@/services/useFetch";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -18,6 +19,14 @@ export default function Index() {
       query: "",
     })
   );
+  const {
+    data: trendingMovies,
+    loading: trendingMoviesLoading,
+    error: trendingMoviesError,
+  } = useFetch(() => gettrendingMovies());
+
+  console.log({ trendingMovies });
+
   return (
     <View className="flex-1 bg-primary">
       <ScrollView
@@ -30,9 +39,9 @@ export default function Index() {
           style={{ width: 48, height: 40 }}
           className="w-12 h-10 mt-20 mb-5 mx-auto"
         />
-        {moviesLoading ? (
+        {moviesLoading || trendingMoviesLoading ? (
           <ActivityIndicator size="large" color="#0000ff" className="mt-10 self-center" />
-        ) : moviesError ? (
+        ) : moviesError || trendingMoviesError ? (
           <Text className="text-red-500">Failed to load movies</Text>
         ) : (
           <View className="flex-1">
@@ -42,6 +51,12 @@ export default function Index() {
               }}
               placeholder="Search for a movie, tv show, person......"
             />
+
+            {trendingMovies && trendingMovies.length > 0 && (
+              <View className="mt-10">
+                <Text className="text-white text-lg font-semibold mt-5 mb-3">Trending Movies</Text>
+              </View>
+            )}
 
             <Text className="text-white text-lg font-semibold mt-5 mb-3">Latest Movies</Text>
             <FlatList

@@ -7,7 +7,7 @@ const TMDB_CONFIG = {
   },
 };
 
-// TMDB cred:
+// TMDB credentials:
 // username: bb-simon
 // password: 1234
 
